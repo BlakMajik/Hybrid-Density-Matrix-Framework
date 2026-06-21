@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Framework: Qiskit](https://img.shields.io/badge/Framework-Qiskit-blueviolet.svg)](https://qiskit.org/)
-[![Status: Academic Preprint](https://img.shields.io/badge/Status-Academic_Preprint-blue.svg)](#references)
+[![Paper: arXiv](https://img.shields.io/badge/Paper-arXiv:XXXX.XXXXX-B31B1B.svg)](https://arxiv.org/) 
 
 A structured diagnostic architecture that augments conventional density matrix representations with layered metadata (Noise, Uncertainty, Context, and History) to systematically evaluate **operational reliability** in Noisy Intermediate-Scale Quantum (NISQ) systems.
 
@@ -22,12 +22,6 @@ The HDMF does not replace quantum mechanics, standard density matrices ($\rho$),
 
 $$\mathcal{H}_{\rho} = (\rho, N, U, C, M)$$
 
-* **$\rho$ (State Layer):** The conventional density matrix preserving physical observables.
-* **$N$ (Noise Descriptor Layer):** Known or inferred noise channels (e.g., Amplitude Damping, Dephasing).
-* **$U$ (Uncertainty Layer):** Local covariance structures or Bayesian posterior distributions.
-* **$C$ (Context Layer):** Classical hardware data (calibration timestamps, topologies, drift).
-* **$M$ (Measurement/Mitigation Layer):** Historical telemetry and error suppression history.
-
 ### The Multiplicative Trust Score ($\mathcal{R}_{HDM}$)
 
 To map these intersecting layers into an actionable engineering metric, the framework implements a deliberate **weakest-link principle**:
@@ -40,7 +34,7 @@ Where **F** is Fidelity (State Accuracy), $\mathrm{Tr}(\rho^2)$ is Purity (Struc
 
 ## 📊 Key Simulation Findings
 
-As detailed in the companion paper, extensive classical simulation runs utilizing **Qiskit** yielded striking results:
+As detailed in the primary manuscript, extensive classical simulation runs utilizing **Qiskit** yielded striking results:
 
 1.  **Exposing the Mirage (Test 2):** Out of 10,000 baseline simulation runs, the framework successfully identified **190 distinct cases** locked inside the Hidden Reliability Region ($F > 0.90$ alongside $\mathcal{R}_{HDM} < 0.60$).
 2.  **Predicting the Future (Test 3):** When predicting whether a quantum state would survive subsequent deep-circuit operations, standard checkpoint fidelity showed zero predictive power ($r \approx 0$). Conversely, the $\mathcal{R}_{HDM}$ score predicted downstream survival with a remarkably strong linear correlation of **$r = 0.9717$**.
@@ -49,9 +43,11 @@ As detailed in the companion paper, extensive classical simulation runs utilizin
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### Prerequisites & Installation
 
-The codebase is engineered to run seamlessly within modern Python and **Qiskit** ecosystems.
+The codebase is engineered to run seamlessly within modern Python and **Qiskit** ecosystems. Clone the repository and install the required dependencies:
 
 ```bash
-pip install qiskit numpy scipy matplotlib
+git clone [https://github.com/BlakMajik/Hybrid-Density-Matrix-Framework.git](https://github.com/BlakMajik/Hybrid-Density-Matrix-Framework.git)
+cd Hybrid-Density-Matrix-Framework
+pip install -r requirements.txt
