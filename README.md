@@ -10,9 +10,9 @@ A structured diagnostic architecture that augments conventional density matrix r
 
 ## 💡 The Core Insight: The "Screenshot Problem"
 
-In modern quantum information processing, state quality is traditionally measured via **Fidelity ($F$)**—essentially asking, *"How close is the final quantum state to our ideal target?"* However, looking at fidelity alone is like judging a complex, intensive video game by a single paused screenshot. The image might look flawless (high fidelity), but it entirely hides the fact that the console is overheating, the memory is corrupting, and the system is seconds away from a catastrophic crash. 
+In modern quantum information processing, state quality is traditionally measured via **Fidelity ($\mathcal{F}$)**—essentially asking, *"How close is the final quantum state to our ideal target?"* However, looking at fidelity alone is like judging a complex, intensive video game by a single paused screenshot. The image might look flawless (high fidelity), but it entirely hides the fact that the console is overheating, the memory is corrupting, and the system is seconds away from a catastrophic crash. 
 
-As circuits grow deeper, a quantum state can maintain geometric proximity to its target while the underlying hardware pathways entirely degrade. This framework exposes the **Hidden Reliability Region**: a parametric space where states look ~95% successful under conventional fidelity metrics, yet possess critically low (~50%) operational trustworthiness.
+As circuits grow deeper, a quantum state can maintain geometric proximity to its target while the underlying hardware pathways entirely degrade. This framework exposes the **Hidden Reliability Region**: a parametric space where states look highly successful under conventional fidelity metrics ($\ge 90\%$), yet possess critically low operational trustworthiness.
 
 ---
 
@@ -20,15 +20,21 @@ As circuits grow deeper, a quantum state can maintain geometric proximity to its
 
 The HDMF does not replace quantum mechanics, standard density matrices ($\rho$), or established benchmarking tools. Instead, it acts as a **unified diagnostic dashboard**, formalizing a multi-layered trust envelope:
 
-$$\mathcal{H}_{\rho} = (\rho, N, U, C, M)$$
+$$\mathcal{H}_{\rho} = (\rho, \mathcal{N}, \mathcal{U}, \mathcal{C}, \mathcal{M})$$
 
-### The Multiplicative Trust Score ($\mathcal{R}_{HDM}$)
+### The Decoupled Multiplicative Trust Score ($R_{HDM}$)
 
-To map these intersecting layers into an actionable engineering metric, the framework implements a deliberate **weakest-link principle**:
+Multiplying raw fidelity and raw purity together creates an *information-overlap problem*: under standard decoherence, both metrics drop, meaning their product unfairly double-penalizes the same underlying degradation. 
 
-$$\mathcal{R}_{HDM} = F \cdot \mathrm{Tr}(\rho^2) \cdot \prod_{i}(1-e_i)$$
+To resolve this, the HDMF isolates **Fidelity-Residual Purity ($\gamma_{\perp}$)**—the component of state purity *not* already explained by fidelity loss. The framework implements a decoupled weakest-link principle:
 
-Where **F** is Fidelity (State Accuracy), $\mathrm{Tr}(\rho^2)$ is Purity (Structural Integrity), and $\prod(1-e_i)$ is the Hardware Survival Probability ($S$) mapped from randomized benchmarking error rates ($e_i$). If any single pillar breaks down, overall confidence drops proportionally.
+$$R_{HDM} = \mathcal{F} \cdot \gamma_{\perp} \cdot \mathcal{S}$$
+
+* **$\mathcal{F}$ (State Accuracy):** Measured via standard Fidelity.
+* **$\gamma_{\perp}$ (Structural Integrity):** Fidelity-Residual Purity. (e.g., $\frac{\mathrm{Tr}(\rho^2)}{2\mathcal{F}^2-1}$ under depolarizing conditions).
+* **$\mathcal{S}$ (Hardware Viability):** Hardware Survival Probability mapped from randomized benchmarking error rates.
+
+If any single pillar breaks down, overall confidence drops proportionally.
 
 ---
 
@@ -36,8 +42,8 @@ Where **F** is Fidelity (State Accuracy), $\mathrm{Tr}(\rho^2)$ is Purity (Struc
 
 As detailed in the primary manuscript, extensive classical simulation runs utilizing **Qiskit** yielded striking results:
 
-1.  **Exposing the Mirage (Test 2):** Out of 10,000 baseline simulation runs, the framework successfully identified **190 distinct cases** locked inside the Hidden Reliability Region ($F > 0.90$ alongside $\mathcal{R}_{HDM} < 0.60$).
-2.  **Predicting the Future (Test 3):** When predicting whether a quantum state would survive subsequent deep-circuit operations, standard checkpoint fidelity showed zero predictive power ($r \approx 0$). Conversely, the $\mathcal{R}_{HDM}$ score predicted downstream survival with a remarkably strong linear correlation of **$r = 0.9717$**.
+1.  **Exposing the Mirage (Test 2 & 5):** Across 31,000 simulation trials, the framework successfully identified **537 distinct cases** locked inside the Hidden Reliability Region ($\mathcal{F} \ge 0.90$ alongside $R_{HDM} < 0.60$).
+2.  **Predicting the Future (Test 3):** When predicting whether a quantum state would survive subsequent deep-circuit operations, standard checkpoint fidelity showed zero predictive power ($r \approx 0$). Conversely, the $R_{HDM}$ score predicted downstream survival with a remarkably strong linear correlation of **$r = 0.9717$**.
 
 ---
 
