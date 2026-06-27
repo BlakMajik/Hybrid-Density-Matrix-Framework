@@ -39,19 +39,19 @@ def run_bell_benchmark():
     
     # Estimate hardware gate errors for the survival calculation
     # In a real scenario, this comes from Randomized Benchmarking
-    estimated_gate_errors = [error_rate, error_rate] 
-    
+    estimated_gate_errors = [error_rate, error_rate]
     # Evaluate using HDMF
     metrics = observer.evaluate_state(observed_state, estimated_gate_errors)
     
-    print(f"State Fidelity (F):          {metrics['fidelity']:.4f}")
-    print(f"State Purity (Gamma):        {metrics['purity']:.4f}")
-    print(f"Hardware Survival (S):       {metrics['survival']:.4f}")
+    print(f"State Fidelity (F):                  {metrics['fidelity']:.4f}")
+    print(f"Fidelity-Residual Purity (Gamma_P):  {metrics['gamma_perp']:.4f}")
+    print(f"Hardware Survival (S):               {metrics['survival']:.4f}")
     print(f"---")
-    print(f"HDM Operational Trust Score: {metrics['R_HDM']:.4f}")
+    print(f"HDM Operational Trust Score:         {metrics['R_HDM']:.4f}")
     
     if metrics['fidelity'] > 0.90 and metrics['R_HDM'] < 0.60:
         print("\nWARNING: State is inside the Hidden Reliability Region!")
 
 if __name__ == "__main__":
     run_bell_benchmark()
+
